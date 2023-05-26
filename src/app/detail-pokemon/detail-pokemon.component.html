@@ -1,0 +1,72 @@
+<div *ngIf="pokemon" class="detail-container">
+  <div class="pokemon-image">
+    <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" />
+  </div>
+  <h2>{{ pokemon.name }}</h2>
+  <div class="pokemon-info">
+    <div class="info-item">
+      <p>Base Experience: {{ pokemon.base_experience }}</p>
+    </div>
+    <div class="info-item">
+      <p>Height: {{ pokemon.height }}</p>
+    </div>
+    <div class="info-item">
+      <p>Weight: {{ pokemon.weight }}</p>
+    </div>
+    <div class="info-item">
+      <p>Types:</p>
+      <ul>
+        <li *ngFor="let type of pokemon.types">{{ type.type.name }}</li>
+      </ul>
+    </div>
+    <div class="info-item" *ngIf="pokemon">
+      <p>Moves:</p>
+      <ul>
+        <li
+          *ngFor="let move of pokemon.moves; let i = index"
+          [class.hidden]="!showAllMoves && i >= 3"
+        >
+          {{ move.move.name }}
+        </li>
+      </ul>
+      <p
+        *ngIf="!showAllMoves && pokemon.moves.length > 3"
+        (click)="showAllMoves = true"
+        id="load-more"
+      >
+        Load More
+      </p>
+    </div>
+    <div class="info-item">
+      <p>Abilities:</p>
+      <ul>
+        <li *ngFor="let ability of pokemon.abilities">
+          {{ ability.ability.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="info-item">
+      <p>Stats:</p>
+      <ul>
+        <li
+          *ngFor="let status of pokemon.stats; let i = index"
+          [class.hidden]="!showAllStats && i >= 3"
+          style="list-style: none; margin-bottom: 10px"
+        >
+          <ul style="padding: 0">
+            <li>Stat Name: {{ status.stat.name }}</li>
+            <li>Base stat: {{ status.base_stat }}</li>
+            <li>Effort: {{ status.effort }}</li>
+          </ul>
+        </li>
+      </ul>
+      <p
+        *ngIf="!showAllStats && pokemon.stats.length > 3"
+        (click)="showAllStats = true"
+        id="load-more"
+      >
+        Load More
+      </p>
+    </div>
+  </div>
+</div>
